@@ -17,7 +17,7 @@ class MagicSpellEventData{
     public const EVENT_TYPE_REGEN_HEALTH = "regenhealth";
     
     /** @var string */
-    public const EVENT_TYPE_PLAYER_EFFECT = "player_effec";
+    public const EVENT_TYPE_PLAYER_EFFECT = "player_effect";
     
     /** @var string */
     public const EVENT_TYPE_TARGET_EFFECT = "target_effect";
