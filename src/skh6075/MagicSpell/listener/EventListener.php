@@ -33,7 +33,7 @@ class EventListener implements Listener{
     }
     
     public function handleEntityDamage (EntityDamageEvent $event): void{
-        if ($event instanceof EntityDamageByEntjtyEvent) {
+        if ($event instanceof EntityDamageByEntityEvent) {
             $entity = $event->getEntity();
             if (($player = $event->getDamager()) instanceof Player) {
                 AttackEntityObject::setPlayerToEntity ($player, $entity);
