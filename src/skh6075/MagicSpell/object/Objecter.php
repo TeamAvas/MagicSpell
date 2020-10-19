@@ -3,6 +3,7 @@
 
 namespace skh6075\MagicSpell\object;
 
+use pocketmine\Player;
 
 abstract class Objecter{
 
@@ -18,4 +19,7 @@ abstract class Objecter{
         return $this->name;
     }
     
+    public function convertName ($player): string{
+        return strtolower ($player instanceof Player ? $player->getName () : $player);
+    }
 }
