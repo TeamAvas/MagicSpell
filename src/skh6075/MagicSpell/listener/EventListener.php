@@ -23,11 +23,11 @@ class EventListener implements Listener{
         $block = $event->getBlock();
         $item = $event->getItem();
         
-        TouchVectorObject::setPlayerToVector ($player, $block->asVector3 ());
+        TouchVectorObject::getInstance ()->setPlayerToVector ($player, $block->asVector3 ());
         
         if (!is_null ($item->getNamedTagEntry ("magicspell"))) {
             $value = $item->getNamedTagEntry ("magicspell")->getValue();
-            if (($spell = MagicSpellFactory::getMagicSpell ($value)) instanceof MagicSpell)
+            if (($spell = MagicSpellFactory::getInstance ()->getMagicSpell ($value)) instanceof MagicSpell)
                 (new MagicSpellUseEvent ($player, $spell))->call ();
         }
     }
@@ -36,12 +36,12 @@ class EventListener implements Listener{
         if ($event instanceof EntityDamageByEntityEvent) {
             $entity = $event->getEntity();
             if (($player = $event->getDamager()) instanceof Player) {
-                AttackEntityObject::setPlayerToEntity ($player, $entity);
+                AttackEntityObject::getInstance ()->setPlayerToEntity ($player, $entity);
                 $item = $player->getInventory()->getItemInHand();
                 
                 if (!is_null ($item->getNamedTagEntry ("magicspell"))) {
                     $value = $item->getNamedTagEntry ("magicspell")->getValue();
-                    if (($spell = MagicSpellFactory::getMagicSpell ($value)) instanceof MagicSpell)
+                    if (($spell = MagicSpellFactory::getInstance ()->getMagicSpell ($value)) instanceof MagicSpell)
                         (new MagicSpellUseEvent ($player, $spell))->call ();
                 }
             }
