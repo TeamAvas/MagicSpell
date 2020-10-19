@@ -12,7 +12,7 @@ use skh6075\MagicSpell\object\Objecter;
 class AttackEntityObject extends Objecter{
 
     /** @var Entity[] */
-    private static $entities = [];
+    private $entities = [];
     
     
     public function __construct () {
@@ -23,15 +23,15 @@ class AttackEntityObject extends Objecter{
      * @param Player $player
      * @param Entity|null $entity
      */
-    public static function setPlayerToEntity (Player $player, ?Entity $entity = null): void{
-        self::$entities [$player->getName ()] = $entity;
+    public function setPlayerToEntity (Player $player, ?Entity $entity = null): void{
+        $this->entities [$player->getLowerCaseName ()] = $entity;
     }
     
     /**
      * @param mixed $player
      * @return Entity|null
      */
-    public static function getEntityByPlayer ($player): ?Entity{
-        return self::$entities [ObjectFactory::convertName ($player)] ?? null;
+    public function getEntityByPlayer ($player): ?Entity{
+        return $this->entities [$this->convertName ($player)] ?? null;
     }
 }
