@@ -23,10 +23,10 @@ class MagicSpellLoader extends PluginBase{
     public function onLoad (): void{
         self::$instance = $this;
         
-        MagicSpellFactory::init ();
-        ObjectFactory::init ();
-        CalculationFactory::init ();
-        SpellEntityFactory::init ();
+        MagicSpellFactory::getInstance ()->init ();
+        ObjectFactory::getInstance ()->init ();
+        CalculationFactory::getInstance ()->init ();
+        SpellEntityFactory::getInstance ()->init ();
     }
     
     public function onEnable (): void{
