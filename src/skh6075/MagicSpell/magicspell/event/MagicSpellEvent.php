@@ -26,12 +26,12 @@ class MagicSpellEvent{
         [$data, $value] = explode (':', $this->event);
         
         if ($data === MagicSpellEventData::EVENT_TYPE_DAMAGE_ATTACK) {
-            if (($entity = AttackEntityObject::getEntityByPlayer ($player)) instanceof Entity) {
+            if (($entity = AttackEntityObject::getInstance ()->getEntityByPlayer ($player)) instanceof Entity) {
                 $event = new EntityDamageByEntityEvent ($player, $entity, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, (float) $value);
                 $player->attack ($event);
             }
         } else if ($data === MagicSpellEventData::EVENT_TYPE_DAMAGE_BLOW) {
-            if (($entity = AttackEntityObject::getEntityByPlayer ($player)) instanceof Entity) {
+            if (($entity = AttackEntityObject::getInstance ()->getEntityByPlayer ($player)) instanceof Entity) {
                 $event = new EntityDamageByEntityEvent ($entity, $player, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, (float) $value);
                 $entity->attack ($event);
             }
@@ -42,7 +42,7 @@ class MagicSpellEvent{
             $effect = new EffectInstance (Effect::getEffect ($id), 20 * $sec, $amf);
             $player->addEffect ($effect);
         } else if ($data === MagicSpellEventData::EVENT_TYPE_TARGET_EFFECT) {
-            if (($entity = AttackEntityObject::getEntityByPlayer ($player)) instanceof Entity) {
+            if (($entity = AttackEntityObject::getInstance ()->getEntityByPlayer ($player)) instanceof Entity) {
                 [$id, $sec, $amf] = explode ('.', $value);
                 $effect = new EffectInstance (Effect::getEffect ($id), 20 * $sec, $amf);
                 $entity->addEffect ($effect);
