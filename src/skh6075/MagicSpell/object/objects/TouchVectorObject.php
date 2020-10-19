@@ -12,7 +12,7 @@ use skh6075\MagicSpell\object\Objecter;
 class TouchVectorObject extends Objecter{
 
     /** @var Vector3[] */
-    private static $vector = [];
+    private $vector = [];
     
     
     public function __construct () {
@@ -23,15 +23,15 @@ class TouchVectorObject extends Objecter{
      * @param Player $player
      * @param Vector3|null $vec
      */
-    public static function setPlayerToVector (Player $player, ?Vector3 $vec = null): void{
-        self::$vector [$player->getName ()] = $vec;
+    public function setPlayerToVector (Player $player, ?Vector3 $vec = null): void{
+        $this->vector [$player->getLowerCaseName ()] = $vec;
     }
     
     /**
      * @param mixed $player
      * @return Vector3|null
      */
-    public static function getVectorByPlayer ($player): ?Vector3{
-        return self::$vector [ObjectFactory::convertName ($player)] ?? null;
+    public function getVectorByPlayer ($player): ?Vector3{
+        return $this->vector [$this->convertName ($player)] ?? null;
     }
 }
