@@ -16,12 +16,18 @@ class DivideCalculation extends Calculation{
     
     public function calculation (Vector3 &$vec, int $slot, float $number1): void{
         $keys = array_keys (self::CALCULATION_SLOT) [$slot];
-        if ($keys === 'x') {
-            $vec->x = $vec->x / $number1;
-        } else if ($keys === 'y') {
-            $vec->y = $vec->y / $number1;
-        } else if ($keys === 'z') {
-            $vec->z = $vec->z / $number1;
+        switch ($keys) {
+            case 'x':
+                $vec->x = $vec->x / $number1;
+                break;
+            case 'y':
+                $vec->y = $vec->y / $number1;
+                break;
+            case 'z':
+                $vec->z = $vec->z / $number1;
+                break;
+            default:
+                break;
         }
     }
 }
