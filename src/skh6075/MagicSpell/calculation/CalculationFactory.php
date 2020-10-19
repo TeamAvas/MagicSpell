@@ -13,31 +13,34 @@ use skh6075\MagicSpell\calculation\calculations\TanCalculation;
 
 class CalculationFactory{
 
+    /** @var CalculationFactory */
+    private static $instance;
+    
     /** @var Calculation[] */
-    private static $calculations = [];
+    private $calculations = [];
     
     
     public static function init (): void{
-        self::registerCalculation (new AddCalculation ());
-        self::registerCalculation (new SubtractCalculation ());
-        self::registerCalculation (new MultiplyCalculation ());
-        self::registerCalculation (new DivideCalculation ());
-        self::registerCalculation (new SinCalculation ());
-        self::registerCalculation (new CosCalculation ());
-        self::registerCalculation (new TanCalculation ());
+        $this->registerCalculation (new AddCalculation ());
+        $this->registerCalculation (new SubtractCalculation ());
+        $this->registerCalculation (new MultiplyCalculation ());
+        $this->registerCalculation (new DivideCalculation ());
+        $this->registerCalculation (new SinCalculation ());
+        $this->registerCalculation (new CosCalculation ());
+        $this->registerCalculation (new TanCalculation ());
     }
     
-    public static function registerCalculation (Calculation $calculation): void{
-        self::$calculations [$calculation->getName ()] = $calculation;
+    private function registerCalculation (Calculation $calculation): void{
+        $this->calculations [$calculation->getName ()] = $calculation;
     }
     
-    public static function unregisterCalculation (string $name): void{
-        if (isset (self::$calculations [$name])) {
-            unset (self::$calculations [$name]);
+    private function unregisterCalculation (string $name): void{
+        if (isset ($this->calculations [$name])) {
+            unset ($this->calculations [$name]);
         }
     }
     
-    public static function getCalculation (string $name): ?Calculation{
-        return self::$calculations [$name] ?? null;
+    public function getCalculation (string $name): ?Calculation{
+        return $this->calculations [$name] ?? null;
     }
 }
