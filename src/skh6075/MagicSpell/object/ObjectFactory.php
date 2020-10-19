@@ -11,29 +11,42 @@ use skh6075\MagicSpell\object\objects\NearEntityObject;
 
 class ObjectFactory{
 
+    /** @var ObjectFactory */
+    private static $instance;
+    
     /** @var Objecter[] */
-    private static $objects = [];
+    private $objects = [];
     
     
-    public static function init (): void{
-        self::registerObject (new TouchVectorObject ());
-        self::registerObject (new AttackEntityObject ());
-        self::registerObject (new NearEntityObject ());
+    public static function getInstance (): ObjectFactory{
+        if (self::$instance === null) {
+            self::$instance = new self ();
+        }
+        return self::$instance;
+    }
+    
+    private function __construct () {
+    }
+    
+    public function init (): void{
+        $this->registerObject (new TouchVectorObject ());
+        $this->registerObject (new AttackEntityObject ());
+        $this->registerObject (new NearEntityObject ());
     }
     
     /**
      * @param string $object
      */
-    public static function registerObject (Objecter $object): void{
-        self::$objects [$object->getName ()] = $object;
+    private function registerObject (Objecter $object): void{
+        $this->objects [$object->getName ()] = $object;
     }
     
     /**
      * @param string $name
      */
-    public static function unregisterObject (string $name): void{
-        if (isset (self::$objects [$name])) {
-            unset (self::$objects [$name]);
+    private function unregisterObject (string $name): void{
+        if (isset ($this->objects [$name])) {
+            unset ($this->objects [$name]);
         }
     }
     
@@ -41,11 +54,7 @@ class ObjectFactory{
      * @param string $name
      * @return Objecter|null
      */
-    public static function getObject (string $name): ?Objecter{
-        return self::$objects [$name] ?? null;
-    }
-    
-    public static function convertName ($player): string{
-        return strtolower ($player instanceof Player ? $player->getName () : $player);
+    private function getObject (string $name): ?Objecter{
+        return $this->objects [$name] ?? null;
     }
 }
